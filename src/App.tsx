@@ -1,5 +1,5 @@
 import './App.css'
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import {Paths} from "./utils/shop-types.ts";
 import Home from "./components/Home.tsx";
 import Customers from "./components/Customers.tsx";
@@ -36,6 +36,7 @@ function App() {
         <Route path={Paths.PRODUCTS} element={<NavigatorDesk items={productItems}/>}>
         <Route path={Paths.BREAD} element={<Bread/>}/>
         <Route path={Paths.DAIRY} element={<Dairy/>}/>
+        <Route path={Paths.BACK} element={<Navigate to={Paths.HOME}/>}/>
         </Route>
       </Route>
           <Route path={"*"} element={<ErrorPage/>} />
