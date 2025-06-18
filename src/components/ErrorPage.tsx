@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import {Paths} from "../utils/shop-types.ts";
+import {Paths} from "../utils/shop-types";
+import React from "react";
 
 const ErrorPage = () => {
     const navigate = useNavigate();

@@ -1,16 +1,18 @@
 import './App.css'
 import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import {Paths} from "./utils/shop-types.ts";
-import Home from "./components/Home.tsx";
-import Customers from "./components/Customers.tsx";
-import Orders from "./components/Orders.tsx";
-import ShoppingCart from "./components/ShoppingCart.tsx";
-import Bread from "./components/Bread.tsx";
-import Dairy from "./components/Dairy.tsx";
-import {navItems, productItems} from "./configurations/nav-config.ts";
-import ErrorPage from "./components/ErrorPage.tsx";
+import {Paths} from "./utils/shop-types";
+import Home from "./components/Home";
+import Customers from "./components/Customers";
+import Orders from "./components/Orders";
+import ShoppingCart from "./components/ShoppingCart";
+import Bread from "./components/Bread";
+import Dairy from "./components/Dairy";
+import {navItems, productItems} from "./configurations/nav-config";
+import ErrorPage from "./components/ErrorPage";
 import {useEffect} from "react";
-import NavigatorDesk from "./components/navigation/NavigatorDesk.tsx";
+import NavigatorDesk from "./components/navigation/NavigatorDesk";
+import Login from "./components/Login";
+import React from 'react';
 
 function App() {
     const location = useLocation();
@@ -39,6 +41,7 @@ function App() {
         <Route path={Paths.BACK} element={<Navigate to={Paths.HOME}/>}/>
         </Route>
       </Route>
+        <Route path={Paths.SIGN_IN} element={<Login onLoginClick={(object)=> console.log(JSON.stringify(object))}/>}></Route>
           <Route path={"*"} element={<ErrorPage/>} />
 
 
