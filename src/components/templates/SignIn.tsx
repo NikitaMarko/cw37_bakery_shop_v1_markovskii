@@ -51,8 +51,13 @@ export default function SignIn(props: Props) {
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
     const[isSignUp, setIsSignUp] = React.useState(false);
 
+    const signUpFn = (data:LoginData) => {
+        console.log(JSON.stringify(data));
+    }
+
+
     if (isSignUp) {
-        return <SignUp submitFn={props.submitFn}/>;
+        return <SignUp submitFn={signUpFn}/>;
     }
         // const [open, setOpen] = React.useState(false);
     //
@@ -66,9 +71,9 @@ export default function SignIn(props: Props) {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (emailError || passwordError) {
-            return;
-        }
+        // if (emailError || passwordError) {
+        //     return;
+        // }
         const data = new FormData(event.currentTarget);
         props.submitFn({
             email: data.get('email') as string,
@@ -155,7 +160,6 @@ export default function SignIn(props: Props) {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                            autoFocus
                             required
                             fullWidth
                             variant="outlined"
@@ -190,7 +194,8 @@ export default function SignIn(props: Props) {
                         <Link
                             onClick={() => setIsSignUp(true)}
                             variant="body2"
-                            sx={{alignSelf: 'center'}}
+                            sx={{alignSelf: 'center',
+                            cursor: 'pointer'}}
                         >
                             Sign up
                         </Link>
