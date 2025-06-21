@@ -1,8 +1,9 @@
 
+
 const Dairy = () => {
     return (
         <div>
-            Dairy
+           Dairy
         </div>
     );
 };

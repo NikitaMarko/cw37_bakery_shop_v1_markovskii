@@ -1,3 +1,4 @@
+
 import {NavLink, Outlet} from "react-router-dom";
 
 const Layout = () => {
@@ -6,14 +7,14 @@ const Layout = () => {
             <nav>
                 <ul className={'nav-list'}>
                     <NavLink to={'/'}><li>Home</li></NavLink>
-                    <NavLink to={'/orders'}><li>Orders</li></NavLink>
+                    <NavLink to={'/orders'}><li>Oredrs</li></NavLink>
                     <NavLink to={'/customers'}><li>Customers</li></NavLink>
                     <NavLink to={'/cart'}><li>Shopping Cart</li></NavLink>
                     <NavLink to={'/products'}><li>Products</li></NavLink>
-                    </ul>
+                </ul>
             </nav>
             <Outlet/>
-            </div>
+        </div>
     );
 };
 

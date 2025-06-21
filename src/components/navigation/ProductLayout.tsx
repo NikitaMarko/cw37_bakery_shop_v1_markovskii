@@ -1,5 +1,6 @@
 import {NavLink, Outlet} from "react-router-dom";
 
+
 const ProductLayout = () => {
     return (
         <div>
@@ -7,7 +8,6 @@ const ProductLayout = () => {
                 <ul className={'nav-list'}>
                     <NavLink to={'bread'}><li>Bread</li></NavLink>
                     <NavLink to={'dairy'}><li>Dairy</li></NavLink>
-
                 </ul>
             </nav>
             <Outlet/>

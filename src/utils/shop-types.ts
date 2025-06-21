@@ -1,18 +1,15 @@
+import {Paths} from "./paths.ts";
 
-export enum Paths {
-    HOME = '/',
-    ORDERS = 'orders',
-    PRODUCTS = 'products',
-    CART = 'cart',
-    CUSTOMERS = 'customers',
-    BREAD = 'bread',
-    DAIRY = 'dairy',
-    ERROR = 'error',
-    BACK = 'back',
-    SIGN_IN = 'sign_in',
+export enum Roles{
+    ALL, USER, ADMIN, NO_AUTH
 }
-
 export type RouteType = {
     path: Paths,
     title: string,
+    role?: Roles
+}
+
+export type LoginData = {
+    email:string,
+    password:string
 }
