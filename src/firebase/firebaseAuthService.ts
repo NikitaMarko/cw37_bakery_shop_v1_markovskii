@@ -1,7 +1,7 @@
 
 import  {signOut, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,createUserWithEmailAndPassword} from 'firebase/auth';
 import type {LoginData} from "../utils/shop-types.ts";
-import {auth} from "../configurations/firebase-config";
+import {auth} from "../configurations/firebase-config.ts";
 
 
 const loginWithEmail = async (data: LoginData)=> {

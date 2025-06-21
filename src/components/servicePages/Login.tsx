@@ -1,9 +1,9 @@
 
+import SignIn from "../templates/SignIn";
 import type {LoginData} from "../../utils/shop-types.ts";
-import {useAppDispatch} from "../../redux/hooks.ts";
-import {loginAction} from "../../redux/slices/authSlice.ts";
+import {useAppDispatch} from "../../redux/hooks";
+import {loginAction} from "../../redux/slices/authSlice";
 import React from "react";
-import SignIn from "../templates/SignIn.tsx";
 
 const Login = () => {
     const dispatch = useAppDispatch();

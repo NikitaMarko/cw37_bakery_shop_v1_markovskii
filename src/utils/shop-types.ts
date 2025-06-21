@@ -1,4 +1,4 @@
-import {Paths} from "./paths.ts";
+import {Paths} from "./paths";
 
 export enum Roles{
     ALL, USER, ADMIN, NO_AUTH
@@ -10,6 +10,8 @@ export type RouteType = {
 }
 
 export type LoginData = {
+    name?: string,
+    lastName?: string,
     email:string,
     password:string
 }

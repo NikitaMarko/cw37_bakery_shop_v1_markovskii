@@ -1,5 +1,5 @@
-import {Roles, type RouteType} from "../utils/shop-types.ts";
-import {Paths} from "../utils/paths.ts";
+import {Roles, type RouteType} from "../utils/shop-types";
+import {Paths} from "../utils/paths";
 
 export const navItems: RouteType[] = [
     {path: Paths.HOME, title: "Home", role: Roles.ALL},

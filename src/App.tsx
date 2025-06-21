@@ -1,23 +1,23 @@
 import './App.css'
 //import Layout from "./components/navigation/Layout.tsx";
 import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import {Paths} from "./utils/paths.ts";
-import Home from "./components/Home.tsx";
-import Customers from "./components/Customers.tsx";
-import Orders from "./components/Orders.tsx";
-import ShoppingCart from "./components/ShoppingCart.tsx";
+import {Paths} from "./utils/paths";
+import Home from "./components/Home";
+import Customers from "./components/Customers";
+import Orders from "./components/Orders";
+import ShoppingCart from "./components/ShoppingCart";
 //import ProductLayout from "./components/navigation/ProductLayout.tsx";
-import Dairy from "./components/Dairy.tsx";
-import Bread from "./components/Bread.tsx";
+import Dairy from "./components/Dairy";
+import Bread from "./components/Bread";
 //import Navigator from "./components/navigation/Navigator.tsx";
-import {navItems, productItems} from "./configurations/nav-config.ts";
-import ErrorPage from "./components/servicePages/ErrorPage.tsx";
+import {navItems, productItems} from "./configurations/nav-config";
+import ErrorPage from "./components/servicePages/ErrorPage";
 import {useEffect} from "react";
-import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
-import Login from "./components/servicePages/Login.tsx";
-import Logout from "./components/servicePages/Logout.tsx";
-import {Roles, type RouteType} from "./utils/shop-types.ts";
-import {useAppSelector} from "./redux/hooks.ts";
+import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop";
+import Login from "./components/servicePages/Login";
+import Logout from "./components/servicePages/Logout";
+import {Roles, type RouteType} from "./utils/shop-types";
+import {useAppSelector} from "./redux/hooks";
 import React from 'react';
 
 function App() {
@@ -32,9 +32,9 @@ function App() {
     const predicate = (item:RouteType) => {
         return (
             item.role === Roles.ALL ||
-                item.role === Roles.USER && authUser||
-                item.role === Roles.ADMIN && authUser && authUser.includes('admin')||
-                item.role === Roles.NO_AUTH && !authUser
+            (item.role === Roles.USER && authUser && !authUser.includes('admin')) ||
+            (item.role === Roles.ADMIN && authUser && authUser.includes('admin')) ||
+            (item.role === Roles.NO_AUTH && !authUser)
         )
     }
 
