@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import { GoogleIcon, SitemarkIcon } from '../templates/CustumIcons';
 import {LoginData} from "../../utils/shop-types";
 import SignIn from "./SignIn";
+import {useNavigate} from "react-router-dom";
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -24,16 +25,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
     padding: theme.spacing(4),
     gap: theme.spacing(2),
     margin: 'auto',
-    boxShadow:
-        'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-    [theme.breakpoints.up('sm')]: {
-        width: '450px',
-    },
-    ...theme.applyStyles('dark', {
-        boxShadow:
-            'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-    }),
-}));
+    }));
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
     height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
@@ -42,21 +34,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
     [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(4),
     },
-    '&::before': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        zIndex: -1,
-        inset: 0,
-        backgroundImage:
-            'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-        backgroundRepeat: 'no-repeat',
-        ...theme.applyStyles('dark', {
-            backgroundImage:
-                'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-        }),
-    },
-}));
+    }));
 
 type Props = {
     submitFn: (loginData: LoginData) => void;
@@ -70,6 +48,7 @@ export default function SignUp(props: Props) {
     const [nameError, setNameError] = React.useState(false);
     const [nameErrorMessage, setNameErrorMessage] = React.useState('');
     const [isSignIn, setIsSignIn] = React.useState(false);
+    const navigate = useNavigate();
 
     if (isSignIn) {
         return <SignIn submitFn={props.submitFn} />;
@@ -113,17 +92,25 @@ export default function SignUp(props: Props) {
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        if (nameError || emailError || passwordError) {
+        // if
+        // (nameError || emailError || passwordError)
+        // {
             event.preventDefault();
+            if (!validateInputs())
             return;
-        }
+        // }
         const data = new FormData(event.currentTarget);
-        props.submitFn({
+        const formData = {
             name: data.get('name') as string,
-            lastName: data.get('lastName') as string,
             email: data.get('email') as string,
             password: data.get('password') as string,
-        });
+            role: 'user',
+        }
+        console.log('Sign-in data', formData);
+        props.submitFn(formData);
+        setTimeout(() => {
+            navigate('/');
+        }, 500);
     };
 
     return (
@@ -196,7 +183,7 @@ export default function SignUp(props: Props) {
         type="submit"
     fullWidth
     variant="contained"
-    onClick={validateInputs}
+    // onClick={validateInputs}
         >
         Sign up
     </Button>

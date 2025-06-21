@@ -11,7 +11,7 @@ export type RouteType = {
 
 export type LoginData = {
     name?: string,
-    lastName?: string,
     email:string,
-    password:string
+    password:string,
+    role?:string
 }
