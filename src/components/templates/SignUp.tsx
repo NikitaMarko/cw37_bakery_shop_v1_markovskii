@@ -25,6 +25,9 @@ const Card = styled(MuiCard)(({ theme }) => ({
     padding: theme.spacing(4),
     gap: theme.spacing(2),
     margin: 'auto',
+    [theme.breakpoints.up('sm')]: {
+        maxWidth: '450px',
+    },
     }));
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
