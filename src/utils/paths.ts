@@ -9,5 +9,6 @@ export enum Paths {
     ERROR = 'error',
     BACK = 'back',
     LOGIN='login',
-    LOGOUT='logout'
+    LOGOUT='logout',
+    REGISTER='register'
 }

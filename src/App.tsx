@@ -19,6 +19,7 @@ import Logout from "./components/servicePages/Logout";
 import {Roles, type RouteType} from "./utils/shop-types";
 import {useAppSelector} from "./redux/hooks";
 import React from 'react';
+import Registration from "./components/servicePages/Registration";
 
 function App() {
     const location = useLocation();

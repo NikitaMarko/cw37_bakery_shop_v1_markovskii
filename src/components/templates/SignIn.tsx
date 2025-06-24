@@ -12,12 +12,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import {styled} from '@mui/material/styles';
-import {GoogleIcon, SitemarkIcon} from '../templates/CustumIcons'
+import {GoogleIcon, SitemarkIcon} from './CustumIcons';
 import type {LoginData} from "../../utils/shop-types.ts";
-import SignUp from "./SignUp";
 
-
-const Card = styled(MuiCard)(({theme}) => ({
+export const Card = styled(MuiCard)(({theme}) => ({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'center',
@@ -30,7 +28,7 @@ const Card = styled(MuiCard)(({theme}) => ({
     },
 }));
 
-const SignInContainer = styled(Stack)(({theme}) => ({
+export const SignInContainer = styled(Stack)(({theme}) => ({
     height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
     minHeight: '100%',
     padding: theme.spacing(2),
@@ -49,17 +47,7 @@ export default function SignIn(props: Props) {
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-    const[isSignUp, setIsSignUp] = React.useState(false);
-
-    const signUpFn = (data:LoginData) => {
-        console.log(JSON.stringify(data));
-    }
-
-
-    if (isSignUp) {
-        return <SignUp submitFn={signUpFn}/>;
-    }
-        // const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
     //
     // const handleClickOpen = () => {
     //     setOpen(true);
@@ -71,17 +59,15 @@ export default function SignIn(props: Props) {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // if (emailError || passwordError) {
-        //     return;
-        // }
+        if (emailError || passwordError) {
+            return;
+        }
         const data = new FormData(event.currentTarget);
         props.submitFn({
             email: data.get('email') as string,
             password: data.get('password') as string,
         });
-
     };
-
 //==================Validation===============================
     const validateInputs = () => {
         const email = document.getElementById('email') as HTMLInputElement;
@@ -108,7 +94,6 @@ export default function SignIn(props: Props) {
         }
 
         return isValid;
-
     };
 //========================================================
     return (
@@ -156,10 +141,11 @@ export default function SignIn(props: Props) {
                             error={passwordError}
                             helperText={passwordErrorMessage}
                             name="password"
-                            placeholder="password"
+                            placeholder="••••••"
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            autoFocus
                             required
                             fullWidth
                             variant="outlined"
@@ -192,10 +178,9 @@ export default function SignIn(props: Props) {
                     <Typography sx={{textAlign: 'center'}}>
                         Don&apos;t have an account?{' '}
                         <Link
-                            onClick={() => setIsSignUp(true)}
+                            href="/register"
                             variant="body2"
-                            sx={{alignSelf: 'center',
-                            cursor: 'pointer'}}
+                            sx={{alignSelf: 'center'}}
                         >
                             Sign up
                         </Link>
