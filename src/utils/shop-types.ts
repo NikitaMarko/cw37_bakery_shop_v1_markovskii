@@ -1,7 +1,7 @@
 import {Paths} from "./paths";
 
 export enum Roles{
-    ALL, USER, ADMIN, NO_AUTH
+    ALL, USER, ADMIN, NO_AUTH, NO_ADMIN
 }
 export type RouteType = {
     path: Paths,
@@ -10,8 +10,22 @@ export type RouteType = {
 }
 
 export type LoginData = {
-    name?: string,
     email:string,
-    password:string,
-    role?:string
+    password:string
+}
+
+export type SignupData = {
+    firstName: string,
+    lastName:string,
+    email:string,
+    password:string
+}
+
+export type ProductType = {
+    id?: string,
+    title: string,
+    category: string,
+    unit: string,
+    cost: number,
+    img: string,
 }
