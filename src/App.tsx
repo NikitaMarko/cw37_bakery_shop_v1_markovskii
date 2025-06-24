@@ -32,9 +32,11 @@ function App() {
     const predicate = (item:RouteType) => {
         return (
             item.role === Roles.ALL ||
-            (item.role === Roles.USER && authUser && !authUser.includes('admin')) ||
-            (item.role === Roles.ADMIN && authUser && authUser.includes('admin')) ||
-            (item.role === Roles.NO_AUTH && !authUser)
+            item.role === Roles.USER && authUser||
+            item.role === Roles.ADMIN && authUser && authUser.includes('admin')||
+            item.role === Roles.NO_AUTH && !authUser||
+            item.role === Roles.NO_ADMIN && authUser && !authUser.includes('admin')
+
         )
     }
 
@@ -61,8 +63,10 @@ function App() {
                 <Route path={Paths.LOGIN} element={<Login/>}/>
                 <Route path={Paths.LOGOUT} element={<Logout/>}/>
             </Route>
+            <Route path={Paths.REGISTER} element={<Registration/>}/>
             <Route path={'*'} element={<ErrorPage/>}/>
         </Routes>
+
     )
 }
 

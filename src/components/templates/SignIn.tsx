@@ -184,7 +184,7 @@ export default function SignIn(props: Props) {
                     <Button
                         fullWidth
                         variant="outlined"
-                        onClick={() => alert('Sign in with Google')}
+                        onClick={() => props.submitFn({email:"GOOGLE", password:""})}
                         startIcon={<GoogleIcon/>}
                     >
                         Sign in with Google
