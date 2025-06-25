@@ -34,19 +34,19 @@ const Registration = () => {
             if (error instanceof FirebaseError) {
                 switch (error.code) {
                     case 'auth/email-already-in-use':
-                        alert('Этот email уже зарегистрирован. Попробуйте войти или восстановить пароль.');
+                        alert('This user was registration.');
                         break;
                     case 'auth/invalid-email':
-                        alert('Неверный формат email.');
+                        alert('Invalid email.');
                         break;
                     case 'auth/weak-password':
-                        alert('Пароль слишком простой. Минимум 6 символов.');
+                        alert('Password must be 6 characters long.');
                         break;
                     default:
-                        alert('Ошибка регистрации: ' + error.message);
+                        alert('Error from registration: ' + error.message);
                 }
             } else {
-                console.error('Неизвестная ошибка:', error);
+                console.error('Unknown error:', error);
             }
         }
     };
