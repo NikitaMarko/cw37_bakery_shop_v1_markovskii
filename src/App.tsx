@@ -15,7 +15,7 @@ import ErrorPage from "./components/servicePages/ErrorPage";
 import {useEffect} from "react";
 import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop";
 import Login from "./components/servicePages/Login";
-import Logout from "./components/servicePages/Logout";
+// import Logout from "./components/servicePages/Logout";
 import {Roles, type RouteType} from "./utils/shop-types";
 import {useAppSelector} from "./redux/hooks";
 import React from 'react';
@@ -62,7 +62,7 @@ function App() {
                     <Route path={Paths.BACK} element={<Navigate to={Paths.HOME}/>}/>
                 </Route>
                 <Route path={Paths.LOGIN} element={<Login/>}/>
-                <Route path={Paths.LOGOUT} element={<Logout/>}/>
+                {/*<Route path={Paths.LOGOUT} element={<Logout/>}/>*/}
             </Route>
             <Route path={Paths.REGISTER} element={<Registration/>}/>
             <Route path={'*'} element={<ErrorPage/>}/>
