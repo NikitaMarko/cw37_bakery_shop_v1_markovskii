@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
+// import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
-import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
@@ -31,9 +31,23 @@ export default function SignUp(props: Props) {
     const validateInputs = () => {
         const email = document.getElementById('email') as HTMLInputElement;
         const password = document.getElementById('password') as HTMLInputElement;
-        const name = document.getElementById('name') as HTMLInputElement;
+        const firstName = document.getElementById('firstName') as HTMLInputElement;
+        const lastName = document.getElementById('lastName') as HTMLInputElement;
 
         let isValid = true;
+
+        if (!firstName.value.trim()) {
+            setNameError(true);
+            setNameErrorMessage('First name is required.');
+            isValid = false;
+        } else if (!lastName.value.trim()) {
+            setNameError(true);
+            setNameErrorMessage('Last name is required.');
+            isValid = false;
+        } else {
+            setNameError(false);
+            setNameErrorMessage('');
+        }
 
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
@@ -53,15 +67,6 @@ export default function SignUp(props: Props) {
             setPasswordErrorMessage('');
         }
 
-        if (!name.value || name.value.length < 1) {
-            setNameError(true);
-            setNameErrorMessage('Name is required.');
-            isValid = false;
-        } else {
-            setNameError(false);
-            setNameErrorMessage('');
-        }
-
         return isValid;
     };
 
@@ -71,8 +76,9 @@ export default function SignUp(props: Props) {
             return;
         }
         const data = new FormData(event.currentTarget);
+
         props.submitFunc({
-            firstName: data.get('name') as string,
+            firstName: data.get('firstName') as string,
             lastName: data.get('lastName') as string,
             email: data.get('email') as string,
             password: data.get('password') as string,
@@ -96,14 +102,27 @@ export default function SignUp(props: Props) {
                     sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                 >
                     <FormControl>
-                        <FormLabel htmlFor="name">Full name</FormLabel>
+                        <FormLabel htmlFor="name">First Name</FormLabel>
                         <TextField
                             autoComplete="name"
-                            name="name"
+                            name="firstName"
                             required
                             fullWidth
-                            id="name"
-                            placeholder="Jon Snow"
+                            id="firstName"
+                            placeholder="John"
+                            error={nameError}
+                            helperText={nameErrorMessage}
+                            color={nameError ? 'error' : 'primary'}
+                        /></FormControl>
+                <FormControl>
+                        <FormLabel htmlFor="name">Last Name</FormLabel>
+                        <TextField
+                            autoComplete="name"
+                            name="lastName"
+                            required
+                            fullWidth
+                            id="lastName"
+                            placeholder="Snow"
                             error={nameError}
                             helperText={nameErrorMessage}
                             color={nameError ? 'error' : 'primary'}
@@ -115,7 +134,7 @@ export default function SignUp(props: Props) {
                             required
                             fullWidth
                             id="email"
-                            placeholder="your@email.com"
+                            placeholder="example@email.com"
                             name="email"
                             autoComplete="email"
                             variant="outlined"
@@ -130,7 +149,7 @@ export default function SignUp(props: Props) {
                             required
                             fullWidth
                             name="password"
-                            placeholder="••••••"
+                            placeholder="******"
                             type="password"
                             id="password"
                             autoComplete="new-password"
@@ -140,10 +159,10 @@ export default function SignUp(props: Props) {
                             color={passwordError ? 'error' : 'primary'}
                         />
                     </FormControl>
-                    <FormControlLabel
-                        control={<Checkbox value="allowExtraEmails" color="primary" />}
-                        label="I want to receive updates via email."
-                    />
+                    {/*<FormControlLabel*/}
+                    {/*    control={<Checkbox value="allowExtraEmails" color="primary" />}*/}
+                    {/*    label="I want to receive updates via email."*/}
+                    {/*/>*/}
                     <Button
                         type="submit"
                         fullWidth
