@@ -23,6 +23,7 @@ export const login = async (data:LoginData) => {
     return data.email === "GOOGLE"? loginWithGoogle() : loginWithEmail(data)
 }
 export const registerWithEmailAndPassword = async (data:LoginData) =>{
+    // await createUserWithEmailAndPassword(auth,data.email,data.password);
     console.log("Registration was successfully ", data.email);
     return data.email;
 }
