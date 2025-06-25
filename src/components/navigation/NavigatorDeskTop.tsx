@@ -15,7 +15,7 @@ type Props = {
     sub?: string
 }
 const NavigatorDeskTop: FC<Props> = ({items}) => {
-    const[user, setUser] = useState<{displayName: string | null, email: string | null} | null>(null);
+    const[user, setUser] = useState<{displayName: string | null, email: string | null, photoURL: string | null} | null>(null);
     const [value, setValue] = useState(0);
     const {pathname} = useLocation();
     const dispatch = useAppDispatch();
@@ -34,6 +34,7 @@ const NavigatorDeskTop: FC<Props> = ({items}) => {
                 setUser({
                     displayName: currentUser.displayName,
                     email: currentUser.email,
+                    photoURL: currentUser.photoURL,
                 });
             } else {
                 setUser(null);
@@ -58,8 +59,8 @@ const NavigatorDeskTop: FC<Props> = ({items}) => {
 
                 {user && (
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                        <Typography variant="body1">{user.displayName || user.email}</Typography>
-                        <Avatar>{(user.displayName || user.email || 'U')[0]}</Avatar>
+                        <Typography variant="body1">{user.email || user.displayName}</Typography>
+                        <Avatar src={user.photoURL || undefined}>{(user.email || 'U')[0]}</Avatar>
                         <Button
                             onClick={async () => {
                                 await exit();
