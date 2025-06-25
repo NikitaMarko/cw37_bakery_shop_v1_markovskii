@@ -8,15 +8,18 @@ const Logout = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        dispatch(logoutAction());
-        navigate("/");
-    };
+
 
     return (
-        <Button variant="contained" onClick={handleLogout}>
+        <div>
+        <Button variant="contained" onClick={() => {
+            alert('Are you sure?')
+            dispatch(logoutAction());
+            navigate('/');
+        }}>
             Logout
         </Button>
+        </div>
     );
 };
 
