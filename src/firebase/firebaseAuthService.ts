@@ -13,7 +13,7 @@ const loginWithEmail = async (data: LoginData)=> {
 const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth,provider);
-const user = result.user
+    const user = result.user
     console.log(auth.currentUser);
     return Promise.resolve(user.email)
 }

@@ -7,9 +7,9 @@ import {useNavigate} from "react-router-dom";
 
 const Registration = () => {
     const navigate = useNavigate();
-    const signUpSubmit = (data:SignupData) => {
-        console.log(JSON.stringify(data))
-    }
+    // const signUpSubmit = (data:SignupData) => {
+    //     console.log(JSON.stringify(data))
+    // }
     const signUpWithEmail = async (data: SignupData) => {
         const userEmailPass:LoginData ={
             email:data.email,
@@ -24,7 +24,7 @@ const Registration = () => {
     }
     return (
         <div>
-            <SignUpForm submitFunc={signUpWithEmail()}/>
+            <SignUpForm submitFunc={signUpWithEmail}/>
             </div>
     );
 };
