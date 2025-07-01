@@ -3,6 +3,8 @@ import {db} from "../configurations/firebase-config";
 import {Category, ProductType} from "../utils/shop-types";
 import {getRandomNumber} from "../utils/tools";
 import productConfig from '../configurations/products-config.json'
+import {Observable} from "rxjs";
+import {collectionData} from 'rxfire/firestore'
 
 const prodCollection = collection(db,'product_collection')
 const categoryCollection = collection(db,'category_collection')
@@ -66,4 +68,8 @@ export const setProducts = async () => {
         }
     }
     return count;
+}
+
+export const getProducts = ():Observable<ProductType[]> =>{
+    return collectionData(prodCollection) as Observable<ProductType[]>
 }
