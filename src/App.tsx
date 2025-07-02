@@ -1,53 +1,50 @@
 import './App.css'
 //import Layout from "./components/navigation/Layout.tsx";
 import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import {Paths} from "./utils/paths";
-import Home from "./components/Home";
-import Customers from "./components/Customers";
-import Orders from "./components/Orders";
-import ShoppingCart from "./components/ShoppingCart";
+import {Paths} from "./utils/paths.ts";
+import Home from "./components/Home.tsx";
+import Customers from "./components/Customers.tsx";
+import Orders from "./components/Orders.tsx";
+import ShoppingCart from "./components/ShoppingCart.tsx";
 //import ProductLayout from "./components/navigation/ProductLayout.tsx";
-import Dairy from "./components/Dairy";
-import Bread from "./components/Bread";
+import Dairy from "./components/Dairy.tsx";
+import Bread from "./components/Bread/Bread.tsx";
 //import Navigator from "./components/navigation/Navigator.tsx";
-import {navItems, productItems} from "./configurations/nav-config";
-import ErrorPage from "./components/servicePages/ErrorPage";
+import {navItems, productItems} from "./configurations/nav-config.ts";
+import ErrorPage from "./components/servicePages/ErrorPage.tsx";
 import {useEffect} from "react";
-import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop";
-import Login from "./components/servicePages/Login";
-// import Logout from "./components/servicePages/Logout";
-import {ProductType, Roles, type RouteType} from "./utils/shop-types";
-import {useAppDispatch, useAppSelector} from "./redux/hooks";
-import React from 'react';
-import Registration from "./components/servicePages/Registration";
-import {getProducts} from "./firebase/firebaseDBService";
-import {prodsUpd} from "./redux/slices/productSlice";
+import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
+import Login from "./components/servicePages/Login.tsx";
+import Logout from "./components/servicePages/Logout.tsx";
+import {ProductType, Roles, type RouteType} from "./utils/shop-types.ts";
+import {useAppDispatch, useAppSelector} from "./redux/hooks.ts";
+import Registration from "./components/servicePages/Registration.tsx";
+import {getProducts} from "./firebase/firebaseDBService.ts";
+import {prodsUpd} from "./redux/slices/productSlice.ts";
 
 function App() {
-    const dispatch = useAppDispatch();
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch  = useAppDispatch();
     const {authUser} = useAppSelector(state => state.auth)
     useEffect(() => {
         if(location.pathname === `/${Paths.ERROR}`)
             navigate('/')
     }, []);
-
     useEffect(() => {
-        const subscription = getProducts().subscribe({
-            next:(prods:ProductType[]) => dispatch(prodsUpd(prods))
+        const subscrition = getProducts().subscribe({
+            next: (prods: ProductType[]) => {dispatch(prodsUpd(prods))}
         })
-        return () => {subscription.unsubscribe()}
+        return () => {subscrition.unsubscribe()}
     }, []);
 
     const predicate = (item:RouteType) => {
         return (
             item.role === Roles.ALL ||
-            item.role === Roles.USER && authUser||
-            item.role === Roles.ADMIN && authUser && authUser.includes('admin')||
-            item.role === Roles.NO_AUTH && !authUser||
-            item.role === Roles.NO_ADMIN && authUser && !authUser.includes('admin')
-
+                item.role === Roles.USER && authUser||
+                item.role === Roles.ADMIN && authUser && authUser.email.includes('admin')||
+                item.role === Roles.NO_AUTH && !authUser||
+                item.role === Roles.NO_ADMIN && authUser && !authUser.email.includes('admin')
         )
     }
 
@@ -72,12 +69,11 @@ function App() {
                     <Route path={Paths.BACK} element={<Navigate to={Paths.HOME}/>}/>
                 </Route>
                 <Route path={Paths.LOGIN} element={<Login/>}/>
-                {/*<Route path={Paths.LOGOUT} element={<Logout/>}/>*/}
+                <Route path={Paths.LOGOUT} element={<Logout/>}/>
             </Route>
             <Route path={Paths.REGISTER} element={<Registration/>}/>
             <Route path={'*'} element={<ErrorPage/>}/>
         </Routes>
-
     )
 }
 

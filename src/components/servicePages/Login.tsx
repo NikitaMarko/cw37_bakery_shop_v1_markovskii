@@ -1,35 +1,35 @@
 
-import SignIn from "../templates/SignIn";
+import SignInForm from "../templates/SignIn.tsx";
 import type {LoginData} from "../../utils/shop-types.ts";
-import {useAppDispatch} from "../../redux/hooks";
-import {loginAction} from "../../redux/slices/authSlice";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import {login} from "../../firebase/firebaseAuthService";
+import {useAppDispatch} from "../../redux/hooks.ts";
+import {loginAction} from "../../redux/slices/authSlice.ts";
+import {login} from "../../firebase/firebaseAuthService.ts";
+import {useNavigate} from "react-router-dom";
+
 
 const Login = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+
     // const submitFn = (loginData: LoginData)=> {
-    //     console.log(JSON.stringify(loginData))
+    //      console.log(JSON.stringify(loginData))
     //     dispatch(loginAction(loginData.email))
     // }
-    const loginWithFirebase = async (loginData: LoginData) => {
+    const loginWithFirebase = async (loginData:LoginData) => {
         try{
-            const email = await login(loginData);
-            dispatch(loginAction(email));
+            const user = await login(loginData);
+            dispatch(loginAction(user));
             navigate('/');
-        }catch(err){
-            console.log(err) //Todo
+        }catch (e) {
+            console.log(e) //Todo
         }
     }
 
     return (
         <div>
-            <SignIn submitFn={loginWithFirebase}/>
-        </div>
+            <SignInForm submitFn={loginWithFirebase}/>
+            </div>
     );
 };
-
 
 export default Login;

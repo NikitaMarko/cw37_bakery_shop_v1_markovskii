@@ -1,4 +1,4 @@
-import {Paths} from "./paths";
+import {Paths} from "./paths.ts";
 
 export enum Roles{
     ALL, USER, ADMIN, NO_AUTH, NO_ADMIN
@@ -16,20 +16,20 @@ export type LoginData = {
 
 export type SignupData = {
     firstName: string,
-    lastName?:string,
+    lastName:string,
     email:string,
     password:string
 }
 
 export type ProductType = {
-    id?: string,
+    id?:string
     title: string,
     category: string,
-    unit: string,
+    unit:string,
     cost: number,
-    img: string,
+    img: string
 }
 
 export type Category = {
-    category_name: string,
+    category_name: string
 }

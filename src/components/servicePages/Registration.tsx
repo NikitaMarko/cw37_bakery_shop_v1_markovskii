@@ -1,13 +1,7 @@
-import SignUpForm from "../templates/SignUp";
+import SignUp from "../templates/SignUp.tsx";
 import type {LoginData, SignupData} from "../../utils/shop-types.ts";
-import React from "react";
-import {registerWithEmailAndPassword} from "../../firebase/firebaseAuthService";
+import {registerWithEmailAndPassword, updateUserProfile} from "../../firebase/firebaseAuthService.ts";
 import {useNavigate} from "react-router-dom";
-import {createUserWithEmailAndPassword} from "firebase/auth";
-// import firebase from "firebase/compat";
-import {auth} from "../../configurations/firebase-config";
-import { updateProfile } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
 
 
 const Registration = () => {
@@ -16,43 +10,21 @@ const Registration = () => {
     //     console.log(JSON.stringify(data))
     // }
     const signUpWithEmail = async (data: SignupData) => {
-        const userEmailPass:LoginData ={
-            email:data.email,
+        const userEmailPass:LoginData = {
+            email: data.email,
             password:data.password
         }
         try{
-            const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-            const user = userCredential.user;
-            const fullName = [data.firstName, data.lastName].filter(Boolean).join(' ');
-            await updateProfile(user,{displayName:fullName});
-            console.log('User was added: ', {displayName:user.displayName, email:user.email});
-
             await registerWithEmailAndPassword(userEmailPass);
-            navigate('/login');
+            await updateUserProfile(data)
+            navigate('/login')
+        }catch (e) {
+            console.log(e)
         }
-        catch (error) {
-            if (error instanceof FirebaseError) {
-                switch (error.code) {
-                    case 'auth/email-already-in-use':
-                        alert('This user was registration.');
-                        break;
-                    case 'auth/invalid-email':
-                        alert('Invalid email.');
-                        break;
-                    case 'auth/weak-password':
-                        alert('Password must be 6 characters long.');
-                        break;
-                    default:
-                        alert('Error from registration: ' + error.message);
-                }
-            } else {
-                console.error('Unknown error:', error);
-            }
-        }
-    };
+    }
     return (
         <div>
-            <SignUpForm submitFunc={signUpWithEmail}/>
+            <SignUp submitFunc={signUpWithEmail}/>
             </div>
     );
 };
