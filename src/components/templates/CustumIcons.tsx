@@ -1,6 +1,10 @@
 import SvgIcon from '@mui/material/SvgIcon';
 import React from 'react';
 
+export const RemoveIcon = () => {
+    return <img src={'/images/img.png'} style={{}}/>
+}
+
 export function SitemarkIcon() {
     return (
         <SvgIcon sx={{ height: 21, width: 100 }}>

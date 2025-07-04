@@ -57,7 +57,7 @@ export const isCategoryExists = async (name:string) => {
 export const setProducts = async () => {
     let count = (await getCountFromServer(prodColl)).data().count;
     console.log('Start setProducts, initial count:', count)
-    // if(count === 0){
+    if(count === 0){
         console.log('Starting to add products');
         const products:ProductType[] = productConfig.map(item => (
             {
@@ -77,7 +77,7 @@ export const setProducts = async () => {
             count++
             console.log(count);
         }
-    // }
+    }
     return count;
 }
 

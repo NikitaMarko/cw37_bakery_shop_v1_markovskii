@@ -9,9 +9,10 @@ export type ProductType = {
 }
  */
 
-import {useAppSelector} from "../../redux/hooks.ts";
+import {useAppSelector} from "../../redux/hooks";
 import {DataGrid, GridColDef} from "@mui/x-data-grid";
 import {Avatar, Box} from "@mui/material";
+import React from "react";
 
 const BreadProductsAdmin = () => {
     const {currProds} = useAppSelector(state => state.products)

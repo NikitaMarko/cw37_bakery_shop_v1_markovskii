@@ -1,4 +1,4 @@
-import {Paths} from "./paths.ts";
+import {Paths} from "./paths";
 
 export enum Roles{
     ALL, USER, ADMIN, NO_AUTH, NO_ADMIN
@@ -33,3 +33,10 @@ export type ProductType = {
 export type Category = {
     category_name: string
 }
+
+export type ShopCartProdType = {
+    cartProdId: string,
+    count: number
+}
+
+export type TableShopCartDataType = ProductType & {count: number, amount: number}

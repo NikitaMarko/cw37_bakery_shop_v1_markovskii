@@ -1,26 +1,29 @@
 import './App.css'
 //import Layout from "./components/navigation/Layout.tsx";
 import {Navigate, Route, Routes, useLocation, useNavigate} from "react-router-dom";
-import {Paths} from "./utils/paths.ts";
-import Home from "./components/Home.tsx";
-import Customers from "./components/Customers.tsx";
-import Orders from "./components/Orders.tsx";
-import ShoppingCart from "./components/ShoppingCart.tsx";
+import {Paths} from "./utils/paths";
+import Home from "./components/Home";
+import Customers from "./components/Customers";
+import Orders from "./components/Orders";
+import ShoppingCart from "./components/ShoppingCart";
 //import ProductLayout from "./components/navigation/ProductLayout.tsx";
-import Dairy from "./components/Dairy.tsx";
-import Bread from "./components/Bread/Bread.tsx";
+import Dairy from "./components/Dairy";
+import Bread from "./components/Bread/Bread";
 //import Navigator from "./components/navigation/Navigator.tsx";
-import {navItems, productItems} from "./configurations/nav-config.ts";
-import ErrorPage from "./components/servicePages/ErrorPage.tsx";
+import {navItems, productItems} from "./configurations/nav-config";
+import ErrorPage from "./components/servicePages/ErrorPage";
 import {useEffect} from "react";
-import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
-import Login from "./components/servicePages/Login.tsx";
-import Logout from "./components/servicePages/Logout.tsx";
-import {ProductType, Roles, type RouteType} from "./utils/shop-types.ts";
-import {useAppDispatch, useAppSelector} from "./redux/hooks.ts";
-import Registration from "./components/servicePages/Registration.tsx";
-import {getProducts} from "./firebase/firebaseDBService.ts";
-import {prodsUpd} from "./redux/slices/productSlice.ts";
+import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop";
+import Login from "./components/servicePages/Login";
+import Logout from "./components/servicePages/Logout";
+import {ProductType, Roles, type RouteType, ShopCartProdType} from "./utils/shop-types";
+import {useAppDispatch, useAppSelector} from "./redux/hooks";
+import Registration from "./components/servicePages/Registration";
+import {getProducts} from "./firebase/firebaseDBService";
+import {prodsUpd} from "./redux/slices/productSlice";
+import React from 'react';
+import {resetCart, setCart} from "./redux/slices/cartSlice";
+import {getCartProducts} from "./firebase/firebaseCartService";
 
 function App() {
     const location = useLocation();
@@ -32,11 +35,22 @@ function App() {
             navigate('/')
     }, []);
     useEffect(() => {
-        const subscrition = getProducts().subscribe({
+        const subscription = getProducts().subscribe({
             next: (prods: ProductType[]) => {dispatch(prodsUpd(prods))}
         })
-        return () => {subscrition.unsubscribe()}
+        return () => {subscription.unsubscribe()}
     }, []);
+
+    useEffect(() => {
+        if(!authUser || authUser.email.includes('admin'))
+            dispatch(resetCart());
+        else {
+            const subscription = getCartProducts(`${authUser.email}_collection`);
+            subscription.subscribe({
+                next: (cartProducts: ShopCartProdType[])=> dispatch(setCart(cartProducts))
+            })
+        }
+    }, [authUser]);
 
     const predicate = (item:RouteType) => {
         return (

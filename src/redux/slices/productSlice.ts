@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ProductType} from "../../utils/shop-types.ts";
+import {ProductType} from "../../utils/shop-types";
 type productsState = {
     currProds: ProductType[]
 }

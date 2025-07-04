@@ -1,6 +1,7 @@
-import {useAppSelector} from "../../redux/hooks.ts";
-import BreadProductsAdmin from "./BreadProductsAdmin.tsx";
-import BreadProductsUser from "./BreadProductsUser.tsx";
+import React from "react";
+import {useAppSelector} from "../../redux/hooks";
+import BreadProductsAdmin from "./BreadProductsAdmin";
+import BreadProductsUser from "./BreadProductsUser";
 
 
 const Bread = () => {
