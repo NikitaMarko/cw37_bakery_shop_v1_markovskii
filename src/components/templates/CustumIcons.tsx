@@ -2,7 +2,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import React from 'react';
 
 export const RemoveIcon = () => {
-    return <img src={'/images/img.png'} style={{}}/>
+    return <img src={'/images/Hagala.png'} style={{width:'20px', height:'auto'}} />
 }
 
 export function SitemarkIcon() {

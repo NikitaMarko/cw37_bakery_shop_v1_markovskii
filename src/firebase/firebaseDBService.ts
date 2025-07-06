@@ -58,25 +58,26 @@ export const setProducts = async () => {
     let count = (await getCountFromServer(prodColl)).data().count;
     console.log('Start setProducts, initial count:', count)
     if(count === 0){
-        console.log('Starting to add products');
-        const products:ProductType[] = productConfig.map(item => (
-            {
-                title: item.name,
-                category: item.name.split('-')[0],
-                unit:item.unit,
-                cost: item.cost,
-                img: item.name + '.jpg'
+    console.log('Starting to add products');
+    const products:ProductType[] = productConfig.map(item => (
+        {
+            title: item.name,
+            category: item.name.split('-')[0],
+            unit:item.unit,
+            cost: item.cost,
+            img: item.name + '.jpg',
+            quantity: 0,
         }
-        ));
-        for (let i = 0; i < products.length; i++) {
-            console.log(`Adding product ${products[i].title}`);
-            const temp = await isCategoryExists(products[i].category)
-            if(!temp)
-                await addCategory({category_name: products[i].category});
-            await addProduct(products[i]);
-            count++
-            console.log(count);
-        }
+    ));
+    for (let i = 0; i < products.length; i++) {
+        console.log(`Adding product ${products[i].title}`);
+        const temp = await isCategoryExists(products[i].category)
+        if(!temp)
+            await addCategory({category_name: products[i].category});
+        await addProduct(products[i]);
+        count++
+        console.log(count);
+    }
     }
     return count;
 }
@@ -84,4 +85,3 @@ export const setProducts = async () => {
 export const getProducts = ():Observable<ProductType[]> => {
     return collectionData(prodColl) as Observable<ProductType[]>
 }
-

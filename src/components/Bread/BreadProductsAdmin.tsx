@@ -10,12 +10,28 @@ export type ProductType = {
  */
 
 import {useAppSelector} from "../../redux/hooks";
-import {DataGrid, GridColDef} from "@mui/x-data-grid";
+import {DataGrid, GridActionsCellItem, GridColDef} from "@mui/x-data-grid";
 import {Avatar, Box} from "@mui/material";
 import React from "react";
+import {RemoveIcon} from "../templates/CustumIcons";
+import {removeProduct} from "../../firebase/firebaseDBService";
 
 const BreadProductsAdmin = () => {
     const {currProds} = useAppSelector(state => state.products)
+    const {authUser} = useAppSelector(state => state.auth)
+    const handleRemove = async (id: string) => {
+        if(!authUser?.email?.includes('admin')){
+            alert('The product cannot be removed.')
+            return;
+        }
+        try {
+            await removeProduct(id);
+            console.log(`Product ${id} successfully removed`);
+        }catch(err){
+            console.error('Error removing product',err);
+        }
+    }
+
     const rows = currProds;
     const columns : GridColDef<(typeof rows)[number]>[] = [
         { field: 'id', headerName: 'ID', width: 90, flex:0.3 },
@@ -28,6 +44,14 @@ const BreadProductsAdmin = () => {
                 <Avatar src={'/images/' + params.value}/>
             )
             } },
+        {field:'actions', type:'actions', flex:0.3,
+            getActions:({id}) =>
+                [
+                    <GridActionsCellItem label={'remove'} icon ={<RemoveIcon/>}
+                                         onClick={() => handleRemove(id as string)}
+                    />
+                ]
+        }
     ]
 
     return (

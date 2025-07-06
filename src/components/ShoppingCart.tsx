@@ -13,7 +13,7 @@ const ShoppingCart = () => {
     const getTableShopCartProducts = (prod:ShopCartProdType)=>{
 
         const product = currProds.find(item => item.id === prod.cartProdId);
-        let res:TableShopCartDataType = {id:undefined, amount:0, cost:0, count:0, category:'', img:'', unit:'', title:''}
+        let res:TableShopCartDataType = {id:undefined, amount:0, cost:0, count:0, category:'', img:'', unit:'', title:'', quantity:0}
         if(!product){
            removeProductFromCart(`${authUser!.email}_collection`, prod.cartProdId)}
          else res = {...product, count:prod.count, amount:prod.count * product.cost}

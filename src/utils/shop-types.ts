@@ -27,9 +27,9 @@ export type ProductType = {
     category: string,
     unit:string,
     cost: number,
-    img: string
+    img: string,
+    quantity: number,
 }
-
 export type Category = {
     category_name: string
 }

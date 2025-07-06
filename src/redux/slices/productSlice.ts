@@ -10,7 +10,9 @@ const productSlice = createSlice({
     initialState,
     reducers: {
         prodsUpd: (state, action) => {
-            state.currProds = action.payload
+            state.currProds = action.payload.map((prods:ProductType)=>({
+                ...prods, quantity:prods.quantity??0
+            }))
         }
     }
 })

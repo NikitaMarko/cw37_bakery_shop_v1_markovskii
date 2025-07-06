@@ -7,7 +7,7 @@ import Customers from "./components/Customers";
 import Orders from "./components/Orders";
 import ShoppingCart from "./components/ShoppingCart";
 //import ProductLayout from "./components/navigation/ProductLayout.tsx";
-import Dairy from "./components/Dairy";
+import Dairy from "./components/Dairy/Dairy";
 import Bread from "./components/Bread/Bread";
 //import Navigator from "./components/navigation/Navigator.tsx";
 import {navItems, productItems} from "./configurations/nav-config";
@@ -51,6 +51,15 @@ function App() {
             })
         }
     }, [authUser]);
+
+    useEffect(() => {
+        const sub = getProducts().subscribe(products => {
+            dispatch(prodsUpd(products));
+        });
+
+        return () => sub.unsubscribe();
+    }, [dispatch]);
+
 
     const predicate = (item:RouteType) => {
         return (
