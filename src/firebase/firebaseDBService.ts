@@ -62,7 +62,7 @@ export const setProducts = async () => {
     const products:ProductType[] = productConfig.map(item => (
         {
             title: item.name,
-            category: item.name.split('-')[0],
+            category: item.category,
             unit:item.unit,
             cost: item.cost,
             img: item.name + '.jpg',

@@ -16,7 +16,7 @@ import React from "react";
 import {RemoveIcon} from "../templates/CustumIcons";
 import {removeProduct} from "../../firebase/firebaseDBService";
 
-const BreadProductsAdmin = () => {
+const DairyProductsAdmin = () => {
     const {currProds} = useAppSelector(state => state.products)
     const {authUser} = useAppSelector(state => state.auth)
     const handleRemove = async (id: string) => {
@@ -32,7 +32,7 @@ const BreadProductsAdmin = () => {
         }
     }
 
-    const rows = currProds.filter(item=>item.category==='bread_products');
+    const rows = currProds.filter(prod=>prod.category==='milk_products');
     const columns : GridColDef<(typeof rows)[number]>[] = [
         { field: 'id', headerName: 'ID', width: 90, flex:0.3 },
         { field: 'title', headerName: 'Product Name', width: 150, flex:1 },
@@ -40,9 +40,9 @@ const BreadProductsAdmin = () => {
         { field: 'unit', headerName: 'Unit', width: 90, flex: 0.4 },
         { field: 'cost', headerName: 'Price in ILS', width: 90, flex: 0.4, editable:true },
         { field: 'img', width: 200,flex:0.5, renderCell: (params) => {
-            return(
-                <Avatar src={'/images/' + params.value}/>
-            )
+                return(
+                    <Avatar src={'/img-milk/' + params.value}/>
+                )
             } },
         {field:'actions', type:'actions', flex:0.3,
             getActions:({id}) =>
@@ -61,4 +61,4 @@ const BreadProductsAdmin = () => {
     );
 };
 
-export default BreadProductsAdmin;
+export default DairyProductsAdmin;

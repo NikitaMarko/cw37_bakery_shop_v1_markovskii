@@ -1,6 +1,5 @@
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {Card, CardActions, CardContent, CardMedia, Grid} from "@mui/material";
-// import {ProductType} from "../../utils/shop-types";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import React, {useEffect} from "react";
@@ -38,9 +37,11 @@ const BreadProductsUser = () => {
         return () => subscription.unsubscribe();
     }, [dispatch]);
 
+    const breadProducts = currProds.filter(item=>item.category === 'bread_products');
+
     return (
         <Grid container spacing={2}>
-            {currProds.map(item => {
+            {breadProducts.map(item => {
                 const quantityInCart =
                     cartProducts.find(prod => prod.cartProdId === item.id)?.count ?? 0;
 
@@ -62,7 +63,7 @@ const BreadProductsUser = () => {
                                 {item.title}
                             </Typography>
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                {item.cost} ILS
+                                {item.cost} ILS per {item.unit}
                             </Typography>
                         </CardContent>
                         <CardActions sx={{

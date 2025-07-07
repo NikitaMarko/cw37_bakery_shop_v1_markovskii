@@ -1,15 +1,16 @@
 import React from "react";
-// import {useAppSelector} from "../../redux/hooks";
-// import DairyProductsUser from "./DairyProductsUser";
-// import DairyProductsAdmin from "./DairyProductsAdmin";
+import {useAppSelector} from "../../redux/hooks";
+import DairyProductsAdmin from "./DairyProductsAdmin";
+import DairyProductsUser from "./DairyProductsUser";
+
 
 
 const Dairy = () => {
-    return (
-        <div>
-            Dairy
-        </div>
-    );
+    const {authUser} = useAppSelector(state => state.auth);
+    if(authUser && authUser.email.includes('admin')){
+        return <DairyProductsAdmin/>
+    }
+    return <DairyProductsUser/>
 };
 
 export default Dairy;
